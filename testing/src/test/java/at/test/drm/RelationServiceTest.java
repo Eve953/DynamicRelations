@@ -14,7 +14,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 public class RelationServiceTest {
@@ -32,11 +35,15 @@ public class RelationServiceTest {
     void createRelation() {
         Mockito.when(relationDaoFactory.getDaoFromSourceObjectClass(any(Class.class)))
                 .thenReturn(personEntityRelationDao);
+        Mockito.when(personEntityRelationDao.save(any()))
+                .thenReturn(new PersonEntityRelation());
         PersonEntity PersonEntity = new PersonEntity();
         PersonEntity.setId(1L);
         DogEntity DogEntity = new DogEntity();
         DogEntity.setId(1L);
-        relationService.createRelation(PersonEntity, DogEntity);
+        RelationLink result = relationService.createRelation(PersonEntity, DogEntity);
+
+        assertThat(result).isNotNull();
     }
 
     @Test
@@ -46,6 +53,8 @@ public class RelationServiceTest {
         PersonEntityRelation personEntityRelation = new PersonEntityRelation();
         personEntityRelation.setSourceObject(new PersonEntity());
         relationService.deleteRelation(personEntityRelation);
+
+        verify(personEntityRelationDao, times(1)).delete(personEntityRelation);
     }
 
     @Test
@@ -55,6 +64,8 @@ public class RelationServiceTest {
         PersonEntity PersonEntity = new PersonEntity();
         PersonEntity.setId(1L);
         List<RelationLink> relationBySourceObject = relationService.findRelationBySourceObject(PersonEntity);
+
+        assertThat(relationBySourceObject).isNotNull();
     }
 
     @Test
@@ -64,6 +75,8 @@ public class RelationServiceTest {
         PersonEntity PersonEntity = new PersonEntity();
         PersonEntity.setId(1L);
         Set<RelationLink> relationByTargetRelationIdentity = relationService.findRelationByTargetRelationIdentity(PersonEntity);
+
+        assertThat(relationByTargetRelationIdentity).isNotNull();
     }
 
 }

@@ -58,7 +58,7 @@ class DynamicRelationsUtilsTest {
 
         assertNotNull(result);
         assertEquals(1, result.size());
-        assertEquals(SomeTestEntity.class, result.getFirst());
+        assertEquals(SomeTestEntity.class, result.get(0));
         verify(relationDaoFactory, times(1)).getAllDaos();
     }
 
@@ -82,7 +82,7 @@ class DynamicRelationsUtilsTest {
 
         assertNotNull(result);
         assertEquals(1, result.size());
-        assertEquals(SomeTestEntity.class, result.getFirst());
+        assertEquals(SomeTestEntity.class, result.get(0));
     }
 
     @Test
@@ -106,7 +106,7 @@ class DynamicRelationsUtilsTest {
 
         assertNotNull(result);
         assertEquals(1, result.size());
-        assertEquals(SomeTestEntity.class, result.getFirst());
+        assertEquals(SomeTestEntity.class, result.get(0));
         verify(relationDaoFactory, times(1)).getAllDaos();
     }
 

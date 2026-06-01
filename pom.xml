@@ -133,7 +133,7 @@
     </profiles>
 
     <properties>
-        <java.version>17</java.version>
+        <java.version>25</java.version>
         <revision>1.0.7</revision>
         <flatten-maven-plugin.version>1.2.7</flatten-maven-plugin.version>
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
@@ -141,10 +141,10 @@
         <maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
         <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>25</maven.compiler.source>
+        <maven.compiler.target>25</maven.compiler.target>
         <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
-        <lombok.version>1.18.38</lombok.version>
+        <lombok.version>1.18.46</lombok.version>
         <postgresql.version>42.7.7</postgresql.version>
         <auto-service.version>1.1.1</auto-service.version>
         <compile-testing.version>0.21.0</compile-testing.version>
@@ -261,14 +261,26 @@
 
     <build>
         <plugins>
-            <plugin>
+           <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <showWarnings>true</showWarnings>
-                    <source>1.21</source>
-                    <target>1.21</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>io.github.mom0aut</groupId>
+                            <artifactId>dynamic-relations</artifactId>
+                            <version>${revision}</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
             <plugin>
